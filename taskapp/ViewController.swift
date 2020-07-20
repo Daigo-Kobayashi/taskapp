@@ -123,17 +123,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.reloadData()
     }
     //L6
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){//searchBarSearchButtonClicked
         print("@@@@")
         taskArray = try! Realm().objects(Task.self).filter("category == %@",searchBar.text!)
         tableView.reloadData()
     }
     //L6
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar){
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar){//searchBarCancelButtonClicked
         searchBar.text = ""
+
         taskArray = try! Realm().objects(Task.self).sorted(byKeyPath:"date",ascending: true)
         tableView.reloadData()
-    }
-
 }
-
+    // 検索バー編集開始時にキャンセルボタン有効化
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar){
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+}
